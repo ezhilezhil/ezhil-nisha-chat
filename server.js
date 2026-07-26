@@ -16,7 +16,7 @@ app.use(helmet({
     crossOriginResourcePolicy: false,
 }));
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: (origin, callback) => callback(null, true),
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
@@ -34,7 +34,7 @@ app.use('/api/upload', require('./routes/uploadRoutes'));
 // Setup Socket.IO
 const io = new Server(server, {
     cors: {
-        origin: process.env.CLIENT_URL || 'http://localhost:5173',
+        origin: (origin, callback) => callback(null, true),
         methods: ['GET', 'POST'],
         credentials: true
     }
